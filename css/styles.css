@@ -1,0 +1,47 @@
+.modal-footer {   border-top: 0px; }
+
+.alert {
+	background: #fffaef;
+	border-color: #ecdcb6;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset;
+	color: #b68b53
+}
+
+.alert strong, .alert b {
+	color: inherit
+}
+.alert-danger, .alert-error {
+	background: #f7e7e4;
+	border-color: #ecbeb6;
+	color: #b55351
+}
+.alert-success {
+	background: #eaf4e2;
+	border-color: #c1dea9;
+	color: #61a06f
+}
+
+.register {
+	  border-top: 0px solid #e5e5e5;
+}
+
+.center {
+	text-align: center;
+}
+
+.limitTop {
+	top: 50px;
+	z-index: -1;
+}
+
+.form-control-feedback {
+position: relative;
+display: inline;
+top: 0;
+line-height: 14px;
+}

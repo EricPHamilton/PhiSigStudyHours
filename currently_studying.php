@@ -1,7 +1,7 @@
 <?php
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
-include_once 'includes/start_hours.inc.php';
+include_once 'includes/submit_hours.inc.php';
 
 sec_session_start();
 ?>
@@ -35,7 +35,7 @@ sec_session_start();
 </head>
 
 <body>
-    <?php if (login_check($mysqli) == true) : ?>
+<?php if (login_check($mysqli) == true) : ?>
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -83,28 +83,14 @@ sec_session_start();
 						<div class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span><strong> Error! Please check the inputs.</strong></div>
 					<?php } ?>
 				</div>
-				<form role="hoursForm" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="post" name="start_hours" onsubmit="return startStudying();">
+				<form role="hoursForm" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="post" name="submit_hours">
 					<div class="col-lg-6">
-						<div class="well well-sm"><strong><i class="glyphicon glyphicon-ok form-control-feedback"></i> Required Field</strong></div>
 						<div class="form-group">
-							<label for="InputName">Your Name</label>
-							<div class="input-group">
-							<input type="text" class="form-control" name="input_name" id="InputName" placeholder="Enter Name" required>
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
+							<label for="InputName">Time spent studying: </label>
+							<label id="time"></label>
 						</div>
-						<div class="form-group">
-							<label for="InputMessage">What will you be working on? (Be Specific, subject, assignment, problem#s, etc.)</label>
-							<div class="input-group">
-							<textarea name="input_message" id="InputMessage" class="form-control" rows="5" required></textarea>
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
-						</div>
-						<div class="form-group">
-							<label for="InputMessage">Where will you be working? (Be Specific, building, room#, etc.)</label>
-							<div class="input-group">
-							<textarea name="input_location" id="InputLocation" class="form-control" rows="5" required></textarea>
-							<span class="input-group-addon"><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
-						</div>
-						<input type="submit" name="start" id="start" value="Start Studying" class="btn btn-info pull-left" >
+						<input type="button" name="startTimer" id="startTimer" value="Start Timer" class="btn btn-info pull-left" onclick="startStudying();">
+						<input type="submit" name="end" id="end" value="End Studying" class="btn btn-info pull-left" >
 					</div>
 				</form>
 			</div>
@@ -166,11 +152,10 @@ sec_session_start();
     <script src="js/bootstrap.min.js"></script>
 
 	<!-- Timer for time script -->
-	<!--<script> 
+	<script> 
 		function updateTimer() {
 			if (typeof updateTimer.counter == 'undefined') {
 				//Start the timer...
-				document.getElementById('start').visible = false;
 				updateTimer.counter = 0;
 				document.getElementById('time').innerHTML = 0;
 			} else {
@@ -183,59 +168,30 @@ sec_session_start();
 
 			setTimeout(updateTimer, 1000);
 		}
-	</script> -->
+	</script>
 	
-	<!--<script>
+	<script>
 		function beginDialogBox() {
 			window.onbeforeunload = function() {
 				return "If you navigate away from this page before clicking 'Submit Hours', your hours will not be recorded. Do you still want to leave?"
 			}
 		}
-	</script>-->
-	
-	<script>
-		function startStudying() {
-			if ( validateData() ) {
-				if ( document.getElementById('InputName').value && document.getElementById('InputMessage').value ) {
-					beginDialogBox();
-					if ( document.getElementById('time').innerHTML == '' ) {
-						return true;
-					}
-				} else {
-					alert("You need to fill out required fields!");
-					return false;
-				}	
-			}
-			return false;
-		}
 	</script>
 	
 	<script>
-		function validateData() {
-			if (document.getElementById('InputName').value.length > 20) {
-				alert("The name must not be longer than 200 characters. Your name is " + document.getElementById('InputName').value.length + " characters long.");
-				return false;
-			}
-			
-			if (document.getElementById('InputMessage').value.length > 200) {
-				alert("The message must not be longer than 200 characters. Your message is " + document.getElementById('InputMessage').value.length + " characters long.");
-				return false;
-			}
-			
-			if (document.getElementById('InputLocation').value.length > 200) {
-				alert("The location must not be longer than 200 characters. Your location is " + document.getElementById('InputLocation').value.length + " characters long.");
-				return false;
-			}
-			
-			return true;
-		}
-	</script>
-	
-	<!--<script>
 		function turnOffDialog() {
 			indow.onbeforeunload = null;
 		}
-	</script>-->
+	</script>
+	
+	<script>
+		function startStudying() {
+			beginDialogBox();
+			if ( document.getElementById('time').innerHTML == '' ) {
+				updateTimer();
+			}
+		}
+	</script>
 
 </body>
 

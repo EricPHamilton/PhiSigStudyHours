@@ -44,7 +44,11 @@ sec_session_start();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Phi Sig Study Hours</a>
+            <?php if (login_check($mysqli) == true) : ?>
+                <a class="navbar-brand" href="landing-page.php">Phi Sig Study Hours</a>
+            <?php else : ?>
+                <a class="navbar-brand" href="index.php">Phi Sig Study Hours</a>
+            <?php endif; ?>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -56,7 +60,7 @@ sec_session_start();
                     <a href="#">Services</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="contact.php">Contact</a>
                 </li>
                 <li>
                     <?php if (login_check($mysqli) == true) : ?>

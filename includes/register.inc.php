@@ -11,8 +11,13 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Not a valid email
-        $error_msg .= '<p class="error">The email address you entered is not valid</p>';
+        $error_msg .= '<p class="error">The email address you entered is not valid.</p>';
     }
+	
+	if (strpos($email,'@purdue.edu') === false) {
+		$error_msg .= '<p class="error">You must use a purdue.edu email address to register.</p>';
+	}
+	
  
     $password = filter_input(INPUT_POST, 'p', FILTER_SANITIZE_STRING);
     if (strlen($password) != 128) {
